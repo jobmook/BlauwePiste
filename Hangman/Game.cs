@@ -9,88 +9,88 @@ namespace Hangman
 {
     public class Game
     {
-        private string _secretWord { get; set; }
-        private int _turns;
-        private int _triesLeft;
-        private List<char> _allGuessedLetters;
-        private List<char> _correctGuessedLetters;
-        private List<char> _wrongGuessedLetters;
-        private Stopwatch _stopWatch;
-        private Boolean _won;
+        private string SecretWord { get; set; }
+        private int Turns;
+        private int TriesLeft;
+        private List<char> AllGuessedLetters;
+        private List<char> CorrectGuessedLetters;
+        private List<char> WrongGuessedLetters;
+        private Stopwatch StopWatch;
+        private Boolean Won;
 
         public Game(string secretWord)
         {
-            _triesLeft = 10; 
-            _turns = 0;
-            _secretWord = secretWord;
-            _allGuessedLetters = new List<char>();
-            _correctGuessedLetters = new List<char>();
-            _wrongGuessedLetters = new List<char>();
-            _stopWatch = new Stopwatch();
-            _stopWatch.Start();
-            _won = false;
+            TriesLeft = 10; 
+            Turns = 0;
+            SecretWord = secretWord;
+            AllGuessedLetters = new List<char>();
+            CorrectGuessedLetters = new List<char>();
+            WrongGuessedLetters = new List<char>();
+            StopWatch = new Stopwatch();
+            StopWatch.Start();
+            Won = false;
         }
 
         public int GetTurns()
         {
-            return _turns;
+            return Turns;
         }
 
         public int GetTriesLeft()
         {
-            return _triesLeft;
+            return TriesLeft;
         }
 
         public List<char> GetCorrectGuessedLetters()
         {
-            return _correctGuessedLetters;
+            return CorrectGuessedLetters;
         }
 
         public List<char> GetWrongGuessedLetters()
         {
-            return _wrongGuessedLetters;
+            return WrongGuessedLetters;
         }
 
         public List<char> GetAllGuessedLetters()
         {
-            return _allGuessedLetters;
+            return AllGuessedLetters;
         }
 
         public string GetSecretWord()
         {
-            return _secretWord;
+            return SecretWord;
         }
 
         public void CheckGuess(char c)
         {
-            _turns++;
-            if (!_allGuessedLetters.Contains(c))
+            Turns++;
+            if (!AllGuessedLetters.Contains(c))
             {
-                _allGuessedLetters.Add(c);
-                if (_secretWord.Contains(c))
+                AllGuessedLetters.Add(c);
+                if (SecretWord.Contains(c))
                 {
-                    foreach (char occ in _secretWord)
+                    foreach (char occ in SecretWord)
                     {
                         if (occ == c)
                         {
-                            _correctGuessedLetters.Add(c);
+                            CorrectGuessedLetters.Add(c);
                         }
                     }
                 }
                 else
                 {
-                    _triesLeft--;
-                    _wrongGuessedLetters.Add(c);
+                    TriesLeft--;
+                    WrongGuessedLetters.Add(c);
                 }
             }   
         }
 
         public Boolean Win()
         {
-            if(_correctGuessedLetters.Count == _secretWord.Length)
+            if(CorrectGuessedLetters.Count == SecretWord.Length)
             {
-                this._stopWatch.Stop();
-                this._won = true;
+                this.StopWatch.Stop();
+                this.Won = true;
                 return true;
             } else
             {
@@ -100,9 +100,9 @@ namespace Hangman
 
         public Boolean Lose()
         {
-            if(_triesLeft <= 0)
+            if(TriesLeft <= 0)
             {
-                this._stopWatch.Stop();
+                this.StopWatch.Stop();
                 return true;
             } else
             {
@@ -113,7 +113,7 @@ namespace Hangman
         public string GuessedLettersToString()
         {
             string res = "";
-            foreach(char c in _allGuessedLetters)
+            foreach(char c in AllGuessedLetters)
             {
                 res += c;
                 res += ", ";
@@ -124,9 +124,9 @@ namespace Hangman
         public string UpdateSolutionString()
         {
             string res = "";
-            foreach (char l in _secretWord)
+            foreach (char l in SecretWord)
             {
-                if (_correctGuessedLetters.Contains(l))
+                if (CorrectGuessedLetters.Contains(l))
                 {
                     res += l + " ";
                 }
@@ -140,12 +140,12 @@ namespace Hangman
 
         public Boolean GetWonStatus()
         {
-            return _won;
+            return Won;
         }
 
         public long GetTime()
         {
-            return _stopWatch.ElapsedMilliseconds;
+            return StopWatch.ElapsedMilliseconds;
         }
     }
 }
