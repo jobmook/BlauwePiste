@@ -26,5 +26,14 @@ namespace Hangman.Tests
             _scoreTracker.AddPlayer(p);
             Assert.IsTrue(_scoreTracker.GetPlayers().Contains(p));
         }
+
+        [TestMethod]
+        public void TestStats()
+        {
+            _scoreTracker.AddWonTime(500);
+            _scoreTracker.AddWrongGuessCount(5);
+            Assert.AreEqual(5, _scoreTracker.GetGuessCounts()[0]);
+            Assert.AreEqual(500, _scoreTracker.GetTimes()[0]);
+        }
     }
 }
