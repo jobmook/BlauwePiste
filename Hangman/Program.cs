@@ -3,6 +3,7 @@ using Hangman;
 using System.Diagnostics;
 
 Game currentGame;
+ScoreTracker scoreTracker = new ScoreTracker();
 
 Console.WriteLine("\n++++++++++Welcome to Hangman++++++++++");
 do
@@ -53,18 +54,28 @@ void gameController()
         currentGame.CheckGuess(guess);
     }
 
+    Boolean gameFinish = false;
     if (currentGame.Win())
     {
         DisplayWordInfo();
         Console.WriteLine("You win!");
-        Console.WriteLine($"Correct word: {currentGame.GetSecretWord()}");
+        scoreTracker.AddWonTime(currentGame.GetTime());
+        gameFinish = true;
     }
 
     if (currentGame.Lose())
     {
         DisplayWordInfo();
         Console.WriteLine("You lose!");
-        Console.WriteLine($"Correct word: {currentGame.GetSecretWord()}");    }
+        gameFinish = true;
+
+    }
+
+    if (gameFinish)
+    {
+        Console.WriteLine($"Correct word: {currentGame.GetSecretWord()}");
+        scoreTracker.AddWrongGuessCount(currentGame.GetWrongGuessedLetters().Count);
+    }
 }
 
 void DisplayWordInfo()
