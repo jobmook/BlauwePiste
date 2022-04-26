@@ -9,14 +9,16 @@ namespace Hangman
 {
     public class Game
     {
-        private string SecretWord { get; set; }
-        private int Turns;
-        private int TriesLeft;
-        private List<char> AllGuessedLetters;
-        private List<char> CorrectGuessedLetters;
-        private List<char> WrongGuessedLetters;
-        private Stopwatch StopWatch;
-        private Boolean Won;
+        public string SecretWord { get; set; }
+        public int Turns { get; set; }
+        public int TriesLeft { get; set; }
+        public List<char> AllGuessedLetters { get; set; }
+        public List<char> CorrectGuessedLetters { get; set; }
+        public List<char> WrongGuessedLetters { get; set; }
+        
+        public Boolean Won { get; set; }
+
+        public Stopwatch StopWatch { get; set; }
 
         public Game(string secretWord)
         {
@@ -31,35 +33,35 @@ namespace Hangman
             Won = false;
         }
 
-        public int GetTurns()
-        {
-            return Turns;
-        }
+        //public int GetTurns()
+        //{
+        //    return Turns;
+        //}
 
-        public int GetTriesLeft()
-        {
-            return TriesLeft;
-        }
+        //public int GetTriesLeft()
+        //{
+        //    return TriesLeft;
+        //}
 
-        public List<char> GetCorrectGuessedLetters()
-        {
-            return CorrectGuessedLetters;
-        }
+        //public List<char> GetCorrectGuessedLetters()
+        //{
+        //    return CorrectGuessedLetters;
+        //}
 
-        public List<char> GetWrongGuessedLetters()
-        {
-            return WrongGuessedLetters;
-        }
+        //public List<char> GetWrongGuessedLetters()
+        //{
+        //    return WrongGuessedLetters;
+        //}
 
-        public List<char> GetAllGuessedLetters()
-        {
-            return AllGuessedLetters;
-        }
+        //public List<char> GetAllGuessedLetters()
+        //{
+        //    return AllGuessedLetters;
+        //}
 
-        public string GetSecretWord()
-        {
-            return SecretWord;
-        }
+        //public string GetSecretWord()
+        //{
+        //    return SecretWord;
+        //}
 
         public void CheckGuess(char c)
         {
@@ -138,10 +140,10 @@ namespace Hangman
             return res;
         }
 
-        public Boolean GetWonStatus()
-        {
-            return Won;
-        }
+        //public Boolean GetWonStatus()
+        //{
+        //    return Won;
+        //}
 
         public long GetTime()
         {

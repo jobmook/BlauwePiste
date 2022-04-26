@@ -23,14 +23,14 @@ namespace Hangman.Tests
         public void TestPlayerGameWon()
         {
             _player.PlayerGameWon();
-            Assert.AreEqual(1, _player.GetGamesWon());
+            Assert.AreEqual(1, _player.GamesWon);
         }
 
         [TestMethod]
         public void TestPlayerGameLost()
         {
             _player.PlayerGameLost();
-            Assert.AreEqual(1, _player.);
+            Assert.AreEqual(1, _player.GamesLost);
         }
 
         [TestMethod]

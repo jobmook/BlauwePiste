@@ -8,9 +8,9 @@ namespace Hangman
 {
     public class Player
     {
-        private string Name;
-        private int GamesWon;
-        private int GamesLost;
+        public string Name { get; set; }
+        public int GamesWon { get; set; }
+        public int GamesLost { get; set; }
 
         public Player(string name)
         {
@@ -19,20 +19,20 @@ namespace Hangman
             GamesLost = 0;
         }
 
-        public string GetName()
-        {
-            return Name;
-        }
+        //public string GetName()
+        //{
+        //    return Name;
+        //}
 
-        public int GetGamesWon()
-        {
-            return GamesWon;
-        }
+        //public int GetGamesWon()
+        //{
+        //    return GamesWon;
+        //}
 
-        public int GetGamesLost()
-        {
-            return GamesLost;
-        }
+        //public int GetGamesLost()
+        //{
+        //    return GamesLost;
+        //}
 
         public void PlayerGameWon()
         {

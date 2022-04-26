@@ -24,7 +24,7 @@ namespace Hangman.Tests
         {
             Player p = new Player("Job");
             _scoreTracker.AddPlayer(p);
-            Assert.IsTrue(_scoreTracker.GetPlayers().Contains(p));
+            Assert.IsTrue(_scoreTracker.Players.Contains(p));
         }
 
         [TestMethod]
@@ -32,8 +32,8 @@ namespace Hangman.Tests
         {
             _scoreTracker.AddWonTime(500);
             _scoreTracker.AddWrongGuessCount(5);
-            Assert.AreEqual(5, _scoreTracker.GetGuessCounts()[0]);
-            Assert.AreEqual(500, _scoreTracker.GetTimes()[0]);
+            Assert.AreEqual(5, _scoreTracker.WrongGuessCount[0]);
+            Assert.AreEqual(500, _scoreTracker.WonTimes[0]);
         }
     }
 }

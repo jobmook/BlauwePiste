@@ -8,9 +8,9 @@ namespace Hangman
 {
     public class ScoreTracker
     {
-        private List<long> WonTimes { get; set; }
-        private List<int> WrongGuessCount { get; set; }
-        private List<Player> Players { get; set; }
+        public List<long> WonTimes { get; set; }
+        public List<int> WrongGuessCount { get; set; }
+        public List<Player> Players { get; set; }
 
         public ScoreTracker()
         {
@@ -37,20 +37,20 @@ namespace Hangman
             WrongGuessCount.Add(wrongCount);
         }
 
-        public List<long> GetTimes()
-        {
-            return WonTimes;
-        }
+        //public List<long> GetTimes()
+        //{
+        //    return WonTimes;
+        //}
 
-        public List<int> GetGuessCounts()
-        {
-            return WrongGuessCount;
-        }
+        //public List<int> GetGuessCounts()
+        //{
+        //    return WrongGuessCount;
+        //}
 
-        public List<Player> GetPlayers()
-        {
-            return Players;
-        }
+        //public List<Player> GetPlayers()
+        //{
+        //    return Players;
+        //}
         
     }
 }

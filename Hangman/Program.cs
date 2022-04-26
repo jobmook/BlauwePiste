@@ -80,15 +80,15 @@ void gameController()
 
     if (gameFinish)
     {
-        Console.WriteLine($"Correct word: {currentGame.GetSecretWord()}");
-        scoreTracker.AddWrongGuessCount(currentGame.GetWrongGuessedLetters().Count);
+        Console.WriteLine($"Correct word: {currentGame.SecretWord}");
+        scoreTracker.AddWrongGuessCount(currentGame.WrongGuessedLetters.Count);
         DisplayScoreboard();
     }
 }
 
 void DisplayWordInfo()
 {
-    Console.WriteLine($"\nTurns left: {currentGame.GetTriesLeft()}\nGuessed letters: {currentGame.GuessedLettersToString()}");
+    Console.WriteLine($"\nTurns left: {currentGame.TriesLeft}\nGuessed letters: {currentGame.GuessedLettersToString()}");
     Console.WriteLine(currentGame.UpdateSolutionString());
     Console.WriteLine();
 }
@@ -98,18 +98,18 @@ void DisplayScoreboard()
     Console.WriteLine("\n++++++++++Statistics++++++++++");
     Console.WriteLine("Last 10 games:");
     Console.WriteLine("Wrong guessed ______ Time");
-    for (int i = 0; i < scoreTracker.GetGuessCounts().Count; i++)
+    for (int i = 0; i < scoreTracker.WrongGuessCount.Count; i++)
     {
-        Console.WriteLine(scoreTracker.GetGuessCounts()[i] + "______" + scoreTracker.GetTimes()[i]);
+        Console.WriteLine(scoreTracker.WrongGuessCount[i] + "______" + scoreTracker.WonTimes[i]);
     }
 }
 
 void DisplayPlayerBoard()
 {
-    List<Player> playerList = scoreTracker.GetPlayers();
+    List<Player> playerList = scoreTracker.Players;
     Console.WriteLine("Players:");
     foreach (Player p in playerList)
     {    
-        Console.WriteLine($"Name: {p.GetName()}\nGames won: {p.GetGamesWon()}, win ratio: {p.GetWinRatio()}\n" );
+        Console.WriteLine($"Name: {p.Name}\nGames won: {p.GamesWon}, win ratio: {p.GetWinRatio()}\n" );
     }
 }
