@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Hangman;
+using Hangman.DAL;
 using System.Diagnostics;
 
 Game currentGame;
@@ -7,6 +8,15 @@ ScoreTracker scoreTracker = new ScoreTracker();
 Player player;
 
 Console.WriteLine("\n++++++++++Welcome to Hangman++++++++++");
+
+using (GameContext context = new GameContext())
+{
+    context.Database.EnsureDeleted();
+    Console.WriteLine("Creating database...");
+    context.Database.EnsureCreated();
+    Console.WriteLine("Finished creating database!");
+}
+
 do
 {
     Console.WriteLine("\nMENU");
@@ -45,7 +55,7 @@ do
 
 void gameController()
 {
-    
+
     Stopwatch sw = Stopwatch.StartNew();
     if (currentGame == null) throw new Exception("There is no game started!"); // error
     while (!currentGame.Win() && !currentGame.Lose())
@@ -109,7 +119,7 @@ void DisplayPlayerBoard()
     List<Player> playerList = scoreTracker.Players;
     Console.WriteLine("Players:");
     foreach (Player p in playerList)
-    {    
-        Console.WriteLine($"Name: {p.Name}\nGames won: {p.GamesWon}, win ratio: {p.GetWinRatio()}\n" );
+    {
+        Console.WriteLine($"Name: {p.Name}\nGames won: {p.GamesWon}, win ratio: {p.GetWinRatio()}\n");
     }
 }

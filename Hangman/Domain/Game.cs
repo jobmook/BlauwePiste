@@ -33,36 +33,6 @@ namespace Hangman
             Won = false;
         }
 
-        //public int GetTurns()
-        //{
-        //    return Turns;
-        //}
-
-        //public int GetTriesLeft()
-        //{
-        //    return TriesLeft;
-        //}
-
-        //public List<char> GetCorrectGuessedLetters()
-        //{
-        //    return CorrectGuessedLetters;
-        //}
-
-        //public List<char> GetWrongGuessedLetters()
-        //{
-        //    return WrongGuessedLetters;
-        //}
-
-        //public List<char> GetAllGuessedLetters()
-        //{
-        //    return AllGuessedLetters;
-        //}
-
-        //public string GetSecretWord()
-        //{
-        //    return SecretWord;
-        //}
-
         public void CheckGuess(char c)
         {
             Turns++;
@@ -139,11 +109,6 @@ namespace Hangman
             }
             return res;
         }
-
-        //public Boolean GetWonStatus()
-        //{
-        //    return Won;
-        //}
 
         public long GetTime()
         {

@@ -8,6 +8,7 @@ namespace Hangman
 {
     public class Player
     {
+        public int PlayerID { get; set; }
         public string Name { get; set; }
         public int GamesWon { get; set; }
         public int GamesLost { get; set; }
@@ -18,21 +19,6 @@ namespace Hangman
             GamesWon = 0;
             GamesLost = 0;
         }
-
-        //public string GetName()
-        //{
-        //    return Name;
-        //}
-
-        //public int GetGamesWon()
-        //{
-        //    return GamesWon;
-        //}
-
-        //public int GetGamesLost()
-        //{
-        //    return GamesLost;
-        //}
 
         public void PlayerGameWon()
         {
