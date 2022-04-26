@@ -30,7 +30,7 @@ namespace Hangman.Tests
         public void TestPlayerGameLost()
         {
             _player.PlayerGameLost();
-            Assert.AreEqual(1, _player.GetGamesLost());
+            Assert.AreEqual(1, _player.);
         }
 
         [TestMethod]

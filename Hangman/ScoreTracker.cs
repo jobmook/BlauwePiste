@@ -8,9 +8,9 @@ namespace Hangman
 {
     public class ScoreTracker
     {
-        private List<long> WonTimes;
-        private List<int> WrongGuessCount;
-        private List<Player> Players;
+        private List<long> WonTimes { get; set; }
+        private List<int> WrongGuessCount { get; set; }
+        private List<Player> Players { get; set; }
 
         public ScoreTracker()
         {

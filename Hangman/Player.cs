@@ -11,7 +11,6 @@ namespace Hangman
         private string Name;
         private int GamesWon;
         private int GamesLost;
-        private double WinRatio;
 
         public Player(string name)
         {
