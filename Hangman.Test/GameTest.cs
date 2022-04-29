@@ -9,11 +9,14 @@ namespace Hangman.Test
     public class GameTest
     {
         protected Game _game;
+        protected Player _player;
 
         [TestInitialize]
         public void InitializeGame()
         {
+            _player = new Player("Job");
             _game = new Game("testwoord");
+            
         }
 
         public void Should_have_correct_secretword_upon_creation()

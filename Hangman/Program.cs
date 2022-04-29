@@ -11,7 +11,6 @@ Console.WriteLine("\n++++++++++Welcome to Hangman++++++++++");
 
 using (GameContext context = new GameContext())
 {
-    context.Database.EnsureDeleted();
     Console.WriteLine("Creating database...");
     context.Database.EnsureCreated();
     Console.WriteLine("Finished creating database!");
@@ -29,11 +28,12 @@ do
         Console.WriteLine("Enter name:");
         string name = Console.ReadLine();
         player = new Player(name);
+        Repository.AddPlayer(player);
         scoreTracker.AddPlayer(player);
         Console.WriteLine("Starting game..");
         Console.WriteLine("Enter a secret word: ");
         string sw = Console.ReadLine();
-        currentGame = new Game(sw.Trim().ToLower());
+        currentGame = new Game(sw.Trim().ToLower(), player.PlayerID); //  hoe kan visual studio weten dat player.PlayerID later gegenereerd wordt.
         gameController();
     }
     else if (input.Equals("2"))
@@ -55,8 +55,8 @@ do
 
 void gameController()
 {
-
-    Stopwatch sw = Stopwatch.StartNew();
+    Stopwatch stopWatch = new Stopwatch();
+    stopWatch.Start();
     if (currentGame == null) throw new Exception("There is no game started!"); // error
     while (!currentGame.Win() && !currentGame.Lose())
     {
@@ -71,18 +71,22 @@ void gameController()
     Boolean gameFinish = false;
     if (currentGame.Win())
     {
-        player.PlayerGameWon();
+        //player.PlayerGameWon();
         DisplayWordInfo();
         Console.WriteLine("You win!");
-        scoreTracker.AddWonTime(currentGame.GetTime());
+        stopWatch.Stop();
+        currentGame.Time = stopWatch.ElapsedMilliseconds;
+        scoreTracker.AddWonTime(currentGame.Time);
         gameFinish = true;
     }
 
     if (currentGame.Lose())
     {
-        player.PlayerGameLost();
+        //player.PlayerGameLost();
         DisplayWordInfo();
         Console.WriteLine("You lose!");
+        stopWatch.Stop();
+        currentGame.Time = stopWatch.ElapsedMilliseconds;
         scoreTracker.AddWonTime(-1);
         gameFinish = true;
 
@@ -91,7 +95,8 @@ void gameController()
     if (gameFinish)
     {
         Console.WriteLine($"Correct word: {currentGame.SecretWord}");
-        scoreTracker.AddWrongGuessCount(currentGame.WrongGuessedLetters.Count);
+        scoreTracker.AddWrongGuessCount(currentGame.WrongGuessedLetters.Length);
+        Repository.AddGame(currentGame);
         DisplayScoreboard();
     }
 }
@@ -108,18 +113,23 @@ void DisplayScoreboard()
     Console.WriteLine("\n++++++++++Statistics++++++++++");
     Console.WriteLine("Last 10 games:");
     Console.WriteLine("Wrong guessed ______ Time");
-    for (int i = 0; i < scoreTracker.WrongGuessCount.Count; i++)
+    List<Game> lastGames = Repository.ReturnLast10Games();
+    //for (int i = 0; i < scoreTracker.WrongGuessCount.Count; i++)
+    //{
+    //    Console.WriteLine(scoreTracker.WrongGuessCount[i] + "______" + scoreTracker.WonTimes[i]);
+    //}
+    foreach(Game game in lastGames)
     {
-        Console.WriteLine(scoreTracker.WrongGuessCount[i] + "______" + scoreTracker.WonTimes[i]);
+        Console.WriteLine($"{game.WrongGuessedLetters.Length}______{game.Time}ms");
     }
 }
 
 void DisplayPlayerBoard()
 {
-    List<Player> playerList = scoreTracker.Players;
-    Console.WriteLine("Players:");
-    foreach (Player p in playerList)
-    {
-        Console.WriteLine($"Name: {p.Name}\nGames won: {p.GamesWon}, win ratio: {p.GetWinRatio()}\n");
-    }
+    //List<Player> playerList = scoreTracker.Players;
+    //Console.WriteLine("Players:");
+    //foreach (Player p in playerList)
+    //{
+    //    Console.WriteLine($"Name: {p.Name}\nGames won: {p.GamesWon}, win ratio: {p.GetWinRatio()}\n");
+    //}
 }

@@ -9,13 +9,18 @@ namespace Hangman.DAL
 {
     public class GameContext : DbContext
     {
+        public DbSet<Game> Games { get; set; } 
         public DbSet<Player> Players { get; set; }
-        public DbSet<ScoreTracker> Highscores { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=.localhost;Initial Catalog = HangmanDB;Integrated Security=true");
-            // base.OnConfiguring(optionsBuilder); Base implementation does nothing!
+            optionsBuilder.UseSqlServer(@"Server=localhost;Database = HangmanDB;Integrated Security=true");
+            
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration<Game>(new GameConfiguration());
+            modelBuilder.ApplyConfiguration<Player>(new PlayerConfiguration());
         }
     }
 }
