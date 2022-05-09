@@ -10,6 +10,7 @@ namespace Hangman
     {
         public int PlayerID { get; set; }
         public string Name { get; set; }
+        //public int Score { get; set; }
         //public int GamesWon { get; set; }
         //public int GamesLost { get; set; }
 
@@ -18,6 +19,7 @@ namespace Hangman
         public Player(string name)
         {
             Name = name;
+            //Score = 0;
         }
 
         //public void PlayerGameWon()

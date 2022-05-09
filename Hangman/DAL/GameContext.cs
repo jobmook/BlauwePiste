@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Hangman.Domain;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,14 @@ namespace Hangman.DAL
     public class GameContext : DbContext
     {
         public DbSet<Game> Games { get; set; } 
+        
         public DbSet<Player> Players { get; set; }
+
+        public DbSet<Word> Words { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            // optionsBuilder.LogTo(Console.WriteLine);
             optionsBuilder.UseSqlServer(@"Server=localhost;Database = HangmanDB;Integrated Security=true");
             
         }

@@ -22,9 +22,9 @@ namespace Hangman
 
         public void AddPlayer(Player player)
         {
-            if(player != null)
+            if (player != null)
             {
-                Players.Add(player);  
+                Players.Add(player);
             }
         }
 
@@ -37,6 +37,5 @@ namespace Hangman
         {
             WrongGuessCount.Add(wrongCount);
         }
-        
     }
 }

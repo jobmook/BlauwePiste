@@ -22,8 +22,6 @@ namespace Hangman
         public Boolean Won { get; set; }
         public long Time { get; set; }
       
-        public Stopwatch StopWatch { get; set; }
-
         public virtual Player Player { get; set; }
 
         public Game(string secretWord, int playerID)
@@ -34,8 +32,6 @@ namespace Hangman
             AllGuessedLetters = "";
             CorrectGuessedLetters = "";
             WrongGuessedLetters = "";
-            StopWatch = new Stopwatch();
-            StopWatch.Start();
             Won = false;
             PlayerID = playerID;
         }
@@ -43,7 +39,7 @@ namespace Hangman
         public void CheckGuess(char c)
         {
             Turns++;
-            if (!AllGuessedLetters.Contains(c))
+            if (!AllGuessedLetters.Contains(c)) // .Count(x => x == c) methode
             {
                 AllGuessedLetters += c;
                 if (SecretWord.Contains(c))
@@ -64,13 +60,11 @@ namespace Hangman
             }   
         }
 
-        public Boolean Win()
+        public Boolean IsWon() 
         {
             if(CorrectGuessedLetters.Length == SecretWord.Length)
             {
-                this.StopWatch.Stop();
                 this.Won = true;
-                
                 return true;
             } else
             {
@@ -78,19 +72,12 @@ namespace Hangman
             }
         }
 
-        public Boolean Lose()
+        public Boolean IsLost() 
         {
-            if(TriesLeft <= 0)
-            {
-                this.StopWatch.Stop();
-                return true;
-            } else
-            {
-                return false;
-            }
+            return TriesLeft <= 0;
         }
 
-        public string GuessedLettersToString()
+        public string GuessedLettersToString() //ui
         {
             string res = "";
             foreach(char c in AllGuessedLetters)
@@ -101,7 +88,7 @@ namespace Hangman
             return res;
         }
 
-        public string UpdateSolutionString()
+        public string UpdateSolutionString() //ui
         {
             string res = "";
             foreach (char l in SecretWord)
@@ -116,11 +103,6 @@ namespace Hangman
                 }
             }
             return res;
-        }
-
-        public void GetTime()
-        {
-            this.Time = StopWatch.ElapsedMilliseconds;
         }
     }
 }

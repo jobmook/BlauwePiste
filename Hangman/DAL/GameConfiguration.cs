@@ -9,7 +9,7 @@ namespace Hangman.DAL
         {
             builder.HasKey(p => p.GameID);
 
-            builder.Ignore(p => p.StopWatch);
+            
         }
     }
 }

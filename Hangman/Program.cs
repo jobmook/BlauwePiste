@@ -1,7 +1,9 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Hangman;
 using Hangman.DAL;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Linq;
 
 Game currentGame;
 ScoreTracker scoreTracker = new ScoreTracker();
@@ -31,7 +33,7 @@ do
         Repository.AddPlayer(player);
         scoreTracker.AddPlayer(player);
         Console.WriteLine("Starting game..");
-        Console.WriteLine("Enter a secret word: ");
+        Console.WriteLine("Enter a secret word: "); // vervangen door stored procedure naar DB
         string sw = Console.ReadLine();
         currentGame = new Game(sw.Trim().ToLower(), player.PlayerID); //  hoe kan visual studio weten dat player.PlayerID later gegenereerd wordt.
         gameController();
@@ -58,7 +60,7 @@ void gameController()
     Stopwatch stopWatch = new Stopwatch();
     stopWatch.Start();
     if (currentGame == null) throw new Exception("There is no game started!"); // error
-    while (!currentGame.Win() && !currentGame.Lose())
+    while (!currentGame.IsWon() && !currentGame.IsLost())
     {
         DisplayWordInfo();
         Console.WriteLine("Enter a guess letter: (press 1 to go back to the menu)");
@@ -69,7 +71,7 @@ void gameController()
     }
 
     Boolean gameFinish = false;
-    if (currentGame.Win())
+    if (currentGame.IsWon())
     {
         //player.PlayerGameWon();
         DisplayWordInfo();
@@ -80,7 +82,7 @@ void gameController()
         gameFinish = true;
     }
 
-    if (currentGame.Lose())
+    if (currentGame.IsLost())
     {
         //player.PlayerGameLost();
         DisplayWordInfo();
@@ -114,10 +116,6 @@ void DisplayScoreboard()
     Console.WriteLine("Last 10 games:");
     Console.WriteLine("Wrong guessed ______ Time");
     List<Game> lastGames = Repository.ReturnLast10Games();
-    //for (int i = 0; i < scoreTracker.WrongGuessCount.Count; i++)
-    //{
-    //    Console.WriteLine(scoreTracker.WrongGuessCount[i] + "______" + scoreTracker.WonTimes[i]);
-    //}
     foreach(Game game in lastGames)
     {
         Console.WriteLine($"{game.WrongGuessedLetters.Length}______{game.Time}ms");
@@ -126,10 +124,8 @@ void DisplayScoreboard()
 
 void DisplayPlayerBoard()
 {
-    //List<Player> playerList = scoreTracker.Players;
-    //Console.WriteLine("Players:");
-    //foreach (Player p in playerList)
-    //{
-    //    Console.WriteLine($"Name: {p.Name}\nGames won: {p.GamesWon}, win ratio: {p.GetWinRatio()}\n");
-    //}
+    var bestPlayer = Repository.ReturnBestMostGuessed();
+    var bestRatio = Repository.ReturnBestRatio();
+    Console.WriteLine($"Best player: id:{bestPlayer.PlayerID}, name: {bestPlayer.Name}, wins: {bestPlayer.WinCount}, losses: {bestPlayer.LostCount}, ratio: {bestPlayer.Ratio}");
+    Console.WriteLine($"Best ratio: id:{bestRatio.PlayerID}, name: {bestRatio.Name}, wins: {bestRatio.WinCount}, losses: {bestRatio.LostCount}, ratio: {bestRatio.Ratio}");
 }
