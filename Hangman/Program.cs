@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Hangman;
 using Hangman.DAL;
+using Hangman.Domain;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Linq;
 Game currentGame;
 ScoreTracker scoreTracker = new ScoreTracker();
 Player player;
+Word word;
 
 Console.WriteLine("\n++++++++++Welcome to Hangman++++++++++");
 
@@ -15,6 +17,10 @@ using (GameContext context = new GameContext())
 {
     Console.WriteLine("Creating database...");
     context.Database.EnsureCreated();
+    if (Repository.IsEmptyWordList())
+    {
+        GameInitialize.AddWords();
+    }
     Console.WriteLine("Finished creating database!");
 }
 
@@ -33,9 +39,10 @@ do
         Repository.AddPlayer(player);
         scoreTracker.AddPlayer(player);
         Console.WriteLine("Starting game..");
-        Console.WriteLine("Enter a secret word: "); // vervangen door stored procedure naar DB
-        string sw = Console.ReadLine();
-        currentGame = new Game(sw.Trim().ToLower(), player.PlayerID); //  hoe kan visual studio weten dat player.PlayerID later gegenereerd wordt.
+        //Console.WriteLine("Enter a secret word: "); // vervangen door stored procedure naar DB
+        word = Repository.GetSecretWord();
+        //string sw = Console.ReadLine();
+        currentGame = new Game(word.SecretWord, word.WordID, player.PlayerID); 
         gameController();
     }
     else if (input.Equals("2"))

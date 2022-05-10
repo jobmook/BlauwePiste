@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Hangman.Domain;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,15 @@ namespace Hangman.DAL
 {
     public class Repository
     {
+       public static Word GetSecretWord()
+        {
+            using(GameContext context = new GameContext())
+            {
+                var word = context.Words.OrderBy(r => Guid.NewGuid()).First();
+                return word;
+            }
+        }
+
         public static IEnumerable<Game> AllGames()
         {
             using (GameContext context = new GameContext())
@@ -31,6 +41,15 @@ namespace Hangman.DAL
             using (GameContext context = new GameContext())
             {
                 return context.Players.ToList();
+            }
+        }
+
+        public static Boolean IsEmptyWordList()
+        {
+            using(GameContext context = new GameContext())
+            {
+                var wordlist = context.Words.ToList();
+                return wordlist.Count() == 0;
             }
         }
 

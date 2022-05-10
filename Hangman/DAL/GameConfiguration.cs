@@ -8,8 +8,6 @@ namespace Hangman.DAL
         public void Configure(EntityTypeBuilder<Game> builder)
         {
             builder.HasKey(p => p.GameID);
-
-            
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hangman.Domain;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Hangman
 {
     public class Game
     {
-        public int GameID { get; set; }
+        public int GameID { get; set; } // primary key
         public string SecretWord { get; set; }
         public int Turns { get; set; }
         public int TriesLeft { get; set; }
@@ -18,13 +19,16 @@ namespace Hangman
         public string WrongGuessedLetters { get; set; }
 
         public int PlayerID { get; set; }
+        public int WordID { get; set; }
 
         public Boolean Won { get; set; }
         public long Time { get; set; }
       
         public virtual Player Player { get; set; }
+        public virtual Word Word { get; set; }
+        
 
-        public Game(string secretWord, int playerID)
+        public Game(string secretWord, int wordID, int playerID)
         {
             TriesLeft = 10; 
             Turns = 0;
@@ -34,6 +38,7 @@ namespace Hangman
             WrongGuessedLetters = "";
             Won = false;
             PlayerID = playerID;
+            WordID = wordID;
         }
 
         public void CheckGuess(char c)

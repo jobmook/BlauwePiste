@@ -26,6 +26,7 @@ namespace Hangman.DAL
         {
             modelBuilder.ApplyConfiguration<Game>(new GameConfiguration());
             modelBuilder.ApplyConfiguration<Player>(new PlayerConfiguration());
+            modelBuilder.ApplyConfiguration<Word>(new WordConfiguration());
         }
     }
 }
