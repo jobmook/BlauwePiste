@@ -10,7 +10,7 @@ namespace Hangman
 {
     public class Game
     {
-        public int GameID { get; set; } // primary key
+        public int GameID { get; set; }
         public string SecretWord { get; set; }
         public int Turns { get; set; }
         public int TriesLeft { get; set; }

@@ -11,7 +11,7 @@ namespace Hangman.DAL
     {
         public static void AddWords()
         {
-            string[] lines = System.IO.File.ReadAllLines(@"C:\Hangman\Hangman\DAL\words.txt");
+            string[] lines = System.IO.File.ReadAllLines(@"C:\Hangman\Hangman.DAL\words.txt");
             using (GameContext context = new GameContext())
             {
                 foreach (string line in lines)

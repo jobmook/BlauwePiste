@@ -1,4 +1,5 @@
-﻿using Hangman.Domain;
+﻿
+using Hangman.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

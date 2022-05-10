@@ -44,6 +44,14 @@ namespace Hangman.DAL
             }
         }
 
+        public static Player SelectPlayer(string name)
+        {
+            using(GameContext context = new GameContext())
+            {
+                return context.Players.Single(p => p.Name == name);
+            }
+        }
+
         public static Boolean IsEmptyWordList()
         {
             using(GameContext context = new GameContext())

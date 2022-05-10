@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangman", "Hangman\Hangman.csproj", "{B49AB8DB-2776-48FC-BDCF-9801DF2486FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangman", "Hangman\Hangman.csproj", "{B49AB8DB-2776-48FC-BDCF-9801DF2486FB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangman.Test", "Hangman.Test\Hangman.Test.csproj", "{66312684-E8E0-4C9C-9BC0-A2D87AA5AC17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangman.Core", "Hangman.Core\Hangman.Core.csproj", "{C4B4318F-E0B9-4260-BE36-2C2F27E5052F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangman.Domain", "Hangman.Domain\Hangman.Domain.csproj", "{D394BB81-B3CB-4DD5-9673-8A2507449892}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangman.DAL", "Hangman.DAL\Hangman.DAL.csproj", "{3770104C-CAE8-4AAF-A202-E8022EBA159E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{66312684-E8E0-4C9C-9BC0-A2D87AA5AC17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66312684-E8E0-4C9C-9BC0-A2D87AA5AC17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66312684-E8E0-4C9C-9BC0-A2D87AA5AC17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4B4318F-E0B9-4260-BE36-2C2F27E5052F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4B4318F-E0B9-4260-BE36-2C2F27E5052F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4B4318F-E0B9-4260-BE36-2C2F27E5052F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4B4318F-E0B9-4260-BE36-2C2F27E5052F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D394BB81-B3CB-4DD5-9673-8A2507449892}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D394BB81-B3CB-4DD5-9673-8A2507449892}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D394BB81-B3CB-4DD5-9673-8A2507449892}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D394BB81-B3CB-4DD5-9673-8A2507449892}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3770104C-CAE8-4AAF-A202-E8022EBA159E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3770104C-CAE8-4AAF-A202-E8022EBA159E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3770104C-CAE8-4AAF-A202-E8022EBA159E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3770104C-CAE8-4AAF-A202-E8022EBA159E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

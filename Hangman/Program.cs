@@ -16,6 +16,7 @@ Console.WriteLine("\n++++++++++Welcome to Hangman++++++++++");
 using (GameContext context = new GameContext())
 {
     Console.WriteLine("Creating database...");
+    context.Database.EnsureDeleted();
     context.Database.EnsureCreated();
     if (Repository.IsEmptyWordList())
     {
@@ -35,9 +36,16 @@ do
     {
         Console.WriteLine("Enter name:");
         string name = Console.ReadLine();
-        player = new Player(name);
-        Repository.AddPlayer(player);
-        scoreTracker.AddPlayer(player);
+        if (PlayerExists(name))
+        {
+            player = Repository.SelectPlayer(name);
+        }
+        else
+        {
+            player = new Player(name);
+            Repository.AddPlayer(player);
+            scoreTracker.AddPlayer(player);
+        } ;
         Console.WriteLine("Starting game..");
         //Console.WriteLine("Enter a secret word: "); // vervangen door stored procedure naar DB
         word = Repository.GetSecretWord();
@@ -61,6 +69,18 @@ do
     }
 } while (true);
 
+Boolean PlayerExists(string name)
+{
+    IEnumerable<Player> listOfAllPlayers = Repository.AllPlayers();
+    foreach(Player p in listOfAllPlayers)
+    {
+        if (p.Name.Equals(name))
+        {
+            return true;
+        }
+    }
+    return false;
+}
 
 void gameController()
 {
