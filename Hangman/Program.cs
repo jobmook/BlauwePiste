@@ -4,10 +4,11 @@ using Hangman.DAL;
 using Hangman.Domain;
 using System.Diagnostics;
 
-Game currentGame;
+Game currentGame = new Game();
 ScoreTracker scoreTracker = new ScoreTracker();
-Player player;
-Word word;
+Player player = new Player();
+Word word = Repository.GetSecretWord();
+GameController gameController = new GameController(player, currentGame, word);
 
 Console.WriteLine("\n++++++++++Welcome to Hangman++++++++++");
 
@@ -33,15 +34,15 @@ do
     {
         Console.WriteLine("Enter name:");
         string name = Console.ReadLine();
-        player = new Player(name);
+        gameController.NewPlayer(name);
         Repository.AddPlayer(player);
         scoreTracker.AddPlayer(player);
+
         Console.WriteLine("Starting game..");
-        //Console.WriteLine("Enter a secret word: "); // vervangen door stored procedure naar DB
-        word = Repository.GetSecretWord();
-        //string sw = Console.ReadLine();
-        currentGame = new Game(word.SecretWord, word.WordID, player.PlayerID);
-        gameController();
+       
+        gameController.NewGame(word.SecretWord, word.WordID, player.PlayerID);
+
+        uiController();
     }
     else if (input.Equals("2"))
     {
@@ -60,23 +61,23 @@ do
 } while (true);
 
 
-void gameController()
+void uiController()
 {
     Stopwatch stopWatch = new Stopwatch();
     stopWatch.Start();
     if (currentGame == null) throw new Exception("There is no game started!"); // error
-    while (!currentGame.IsWon() && !currentGame.IsLost())
+    while (!gameController.IsWon() && !gameController.IsLost())
     {
         DisplayWordInfo();
         Console.WriteLine("Enter a guess letter: (press 1 to go back to the menu)");
         char guess = char.Parse(Console.ReadLine());
         if (guess == '1')
             break;
-        currentGame.CheckGuess(guess);
+        gameController.CheckGuess(guess);
     }
 
     Boolean gameFinish = false;
-    if (currentGame.IsWon())
+    if (gameController.IsWon())
     {
         //player.PlayerGameWon();
         DisplayWordInfo();
@@ -87,7 +88,7 @@ void gameController()
         gameFinish = true;
     }
 
-    if (currentGame.IsLost())
+    if (gameController.IsLost())
     {
         //player.PlayerGameLost();
         DisplayWordInfo();
@@ -110,8 +111,9 @@ void gameController()
 
 void DisplayWordInfo()
 {
-    Console.WriteLine($"\nTurns left: {currentGame.TriesLeft}\nGuessed letters: {currentGame.GuessedLettersToString()}");
-    Console.WriteLine(currentGame.UpdateSolutionString());
+    var res = GuessedLettersToString();
+    Console.WriteLine($"\nTurns left: {currentGame.TriesLeft}\nGuessed letters: {res}");
+    Console.WriteLine(UpdateSolutionString());
     Console.WriteLine();
 }
 
@@ -133,4 +135,33 @@ void DisplayPlayerBoard()
     var bestRatio = Repository.ReturnBestRatio();
     Console.WriteLine($"Best player: id:{bestPlayer.PlayerID}, name: {bestPlayer.Name}, wins: {bestPlayer.WinCount}, losses: {bestPlayer.LostCount}, ratio: {bestPlayer.Ratio}");
     Console.WriteLine($"Best ratio: id:{bestRatio.PlayerID}, name: {bestRatio.Name}, wins: {bestRatio.WinCount}, losses: {bestRatio.LostCount}, ratio: {bestRatio.Ratio}");
+}
+
+string UpdateSolutionString() //ui
+{
+    string res = "";
+    foreach (char l in word.SecretWord)
+    {
+        if (currentGame.CorrectGuessedLetters.Contains(l))
+        {
+            res += l + " ";
+        }
+        else
+        {
+            res += "* ";
+        }
+    }
+    return res;
+}
+
+
+string GuessedLettersToString() //ui
+{
+    string res = "";
+    foreach (char c in currentGame.AllGuessedLetters)
+    {
+        res += c;
+        res += ", ";
+    }
+    return res;
 }

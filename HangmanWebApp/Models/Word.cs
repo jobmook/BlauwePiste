@@ -11,9 +11,9 @@ namespace Hangman.Domain
         public int WordID { get; set; }
         public string SecretWord { get; set; }
 
-        //public Word(string secretWord)
-        //{
-        //    SecretWord = secretWord;
-        //}
+        public Word(string secretWord)
+        {
+            SecretWord = secretWord;
+        }
     }
 }

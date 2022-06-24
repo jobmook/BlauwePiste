@@ -16,9 +16,9 @@ namespace Hangman.DAL
             {
                 foreach (string line in lines)
                 {
-                    Word word = new Word(line);
+                    Word word = new Word();
+                    word.SecretWord = line;
                     context.Words.Add(word);
-                    
                 }
                 context.SaveChanges();
             }

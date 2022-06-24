@@ -13,10 +13,10 @@ namespace Hangman
 
         public virtual List<Game> Games { get; set; }
 
-        //public Player(string name)
-        //{
-        //    Name = name;
+        public Player(string name)
+        {
+            Name = name;
             
-        //}
+        }
     }
 }
