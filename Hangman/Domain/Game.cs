@@ -1,10 +1,4 @@
 ﻿using Hangman.Domain;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hangman
 {
@@ -23,14 +17,14 @@ namespace Hangman
 
         public Boolean Won { get; set; }
         public long Time { get; set; }
-      
+
         public virtual Player Player { get; set; }
         public virtual Word Word { get; set; }
-        
+
 
         public Game(string secretWord, int wordID, int playerID)
         {
-            TriesLeft = 10; 
+            TriesLeft = 10;
             Turns = 0;
             SecretWord = secretWord;
             AllGuessedLetters = "";
@@ -62,22 +56,23 @@ namespace Hangman
                     TriesLeft--;
                     WrongGuessedLetters += (c);
                 }
-            }   
+            }
         }
 
-        public Boolean IsWon() 
+        public Boolean IsWon()
         {
-            if(CorrectGuessedLetters.Length == SecretWord.Length)
+            if (CorrectGuessedLetters.Length == SecretWord.Length)
             {
                 this.Won = true;
                 return true;
-            } else
+            }
+            else
             {
                 return false;
             }
         }
 
-        public Boolean IsLost() 
+        public Boolean IsLost()
         {
             return TriesLeft <= 0;
         }
@@ -85,7 +80,7 @@ namespace Hangman
         public string GuessedLettersToString() //ui
         {
             string res = "";
-            foreach(char c in AllGuessedLetters)
+            foreach (char c in AllGuessedLetters)
             {
                 res += c;
                 res += ", ";

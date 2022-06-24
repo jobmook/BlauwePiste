@@ -2,9 +2,7 @@
 using Hangman;
 using Hangman.DAL;
 using Hangman.Domain;
-using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
-using System.Linq;
 
 Game currentGame;
 ScoreTracker scoreTracker = new ScoreTracker();
@@ -42,7 +40,7 @@ do
         //Console.WriteLine("Enter a secret word: "); // vervangen door stored procedure naar DB
         word = Repository.GetSecretWord();
         //string sw = Console.ReadLine();
-        currentGame = new Game(word.SecretWord, word.WordID, player.PlayerID); 
+        currentGame = new Game(word.SecretWord, word.WordID, player.PlayerID);
         gameController();
     }
     else if (input.Equals("2"))
@@ -123,7 +121,7 @@ void DisplayScoreboard()
     Console.WriteLine("Last 10 games:");
     Console.WriteLine("Wrong guessed ______ Time");
     List<Game> lastGames = Repository.ReturnLast10Games();
-    foreach(Game game in lastGames)
+    foreach (Game game in lastGames)
     {
         Console.WriteLine($"{game.WrongGuessedLetters.Length}______{game.Time}ms");
     }
