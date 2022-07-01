@@ -1,4 +1,5 @@
 ﻿using Hangman.Domain;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +10,16 @@ namespace Hangman.DAL.Repositories
 {
     public class StatsRepository
     {
-        public IEnumerable<Game> ReturnLast10Games()
+        public async Task<IEnumerable<Game>> ReturnLast10GamesAsync()
         {
             using (GameContext context = new GameContext())
             {
-                var stats = context.Games.OrderByDescending(k => k.GameID).Take(10).ToList();
+                var stats = await context.Games.OrderByDescending(k => k.GameID).Take(10).ToListAsync();
                 return stats;
             }
         }
 
-        public PlayerStatistics ReturnBestMostGuessed()
+        public  PlayerStatistics ReturnBestMostGuessed()
         {
             using (GameContext context = new GameContext())
             {

@@ -39,9 +39,9 @@ namespace HangmanWebApp.Pages.PlayGame
 
         public void OnGet()
         {
-            if (words.IsEmptyWordList() == true)
+            if (words.IsEmptyWordListAsync().Result == true)
             {
-                words.AddWords();
+                words.AddWordsAsync();
             }
         }
 
@@ -54,26 +54,26 @@ namespace HangmanWebApp.Pages.PlayGame
         {
             Player newPlayer = new Player();
             newPlayer.Name = PlayerName;
-            players.AddPlayer(newPlayer);
+            players.AddPlayerAsync(newPlayer);
             return Page();
         }
 
-        public IActionResult OnPostStart()
+        public  IActionResult OnPostStart()
         {
             Player newPlayer = new Player();
-            if (players.GetPlayerByName(PlayerName) == null)
+            if (players.GetPlayerByNameAsync(PlayerName).Result == null)
             {
                 newPlayer.Name = PlayerName;
-                players.AddPlayer(newPlayer);
+                players.AddPlayerAsync(newPlayer);
             }
             else
             {
-                newPlayer = players.GetPlayerByName(PlayerName);
+                newPlayer = players.GetPlayerByNameAsync(PlayerName).Result;
             }
 
             Game newGame = new Game();
-            Word newWord = words.GetSecretWord();
-            Player correspondingPlayer = players.GetLastPlayer();
+            Word newWord = words.GetSecretWordAsync().Result;
+            Player correspondingPlayer = players.GetLastPlayerAsync().Result;
 
             newGame.TriesLeft = 10;
             newGame.Turns = 0;
@@ -86,7 +86,7 @@ namespace HangmanWebApp.Pages.PlayGame
             newGame.Status = GameStatus.InProgress;
             newGame.StartTime = DateTime.Now.Millisecond;
 
-            games.AddGame(newGame);
+            games.AddGameAsync(newGame);
             Turns = newGame.Turns;
             TriesLeft = newGame.TriesLeft;
             SolutionString = UpdateSolutionString(newGame);
@@ -96,12 +96,12 @@ namespace HangmanWebApp.Pages.PlayGame
 
         public IActionResult OnPostGuess()
         {
-            Game currentGame = games.GetLastGame();
-            Word currentWord = words.GetWordById(currentGame.WordID);
+            Game currentGame = games.GetLastGameAsync().Result;
+            Word currentWord = words.GetWordByIdAsync(currentGame.WordID).Result;
             GameProgress = "In Progress";
 
             currentGame.Turns++;
-            if (!currentGame.AllGuessedLetters.Contains(this.Guess)) // .Count(x => x == c) methode
+            if (!currentGame.AllGuessedLetters.Contains(this.Guess))
             {
                 currentGame.AllGuessedLetters += this.Guess;
                 if (currentGame.SecretWord.Contains(this.Guess))
@@ -136,7 +136,7 @@ namespace HangmanWebApp.Pages.PlayGame
                     GameProgress = "Lost";
                     
                 }
-                games.UpdateGame(currentGame);
+                games.UpdateGameAsync(currentGame);
             }
             Turns = currentGame.Turns;
             TriesLeft = currentGame.TriesLeft;

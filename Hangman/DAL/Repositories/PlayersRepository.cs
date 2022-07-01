@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,44 +10,44 @@ namespace Hangman.DAL.Repositories
     public class PlayersRepository
     {
         
-        public Player GetPlayerById(int id)
+        public async Task<Player> GetPlayerByIdAsync(int id)
         {
             using (GameContext context = new GameContext())
             {
-                return context.Players.Find(id);
+                return await context.Players.FindAsync(id);
             }
         }
 
-        public Player GetPlayerByName(string name)
+        public async Task<Player> GetPlayerByNameAsync(string name)
         {
             using (GameContext context = new GameContext())
             {
-                return context.Players.FirstOrDefault(x => x.Name == name);
+                return await context.Players.FirstOrDefaultAsync(x => x.Name == name);
             }
         }
 
-        public void AddPlayer(Player playerToAdd)
+        public async Task AddPlayerAsync(Player playerToAdd)
         {
             using (GameContext context = new GameContext())
             {
                 context.Players.Add(playerToAdd);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
         }
 
-        public IEnumerable<Player> GetPlayers()
+        public async Task<IEnumerable<Player>> GetPlayersAsync()
         {
             using (GameContext context = new GameContext())
             {
-                return context.Players.ToList();
+                return await context.Players.ToListAsync();
             }
         }
 
-        public Player GetLastPlayer()
+        public async Task<Player> GetLastPlayerAsync()
         {
             using (GameContext context = new GameContext())
             {
-                return context.Players.OrderByDescending(x => x.PlayerID).FirstOrDefault();
+                return await context.Players.OrderByDescending(x => x.PlayerID).FirstOrDefaultAsync();
             }
         }
 

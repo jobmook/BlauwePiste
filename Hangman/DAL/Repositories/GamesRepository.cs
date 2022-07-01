@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,45 +9,45 @@ namespace Hangman.DAL.Repositories
 {
     public class GamesRepository
     {
-        public Game GetGameById(int id)
+        public async Task<Game> GetGameByIdAsync(int id)
         {
             using (GameContext context = new GameContext())
             {
-                return context.Games.Find(id);
+                return await context.Games.FindAsync(id);
             }
         }
 
-        public void AddGame(Game gameToAdd)
+        public async Task AddGameAsync(Game gameToAdd)
         {
             using (GameContext context = new GameContext())
             {
-                context.Games.AddAsync(gameToAdd);
-                context.SaveChanges();
+                context.Games.Add(gameToAdd);
+                context.SaveChangesAsync();
             }
         }
 
-        public void UpdateGame(Game game)
+        public async Task UpdateGameAsync(Game game)
         {
             using (GameContext context = new GameContext())
             {
                context.Games.Update(game);
-               context.SaveChanges();
+               await context.SaveChangesAsync();
             }
         }
 
-        public IEnumerable<Game> GetGames()
+        public async Task<IEnumerable<Game>> GetGamesAsync()
         {
             using (GameContext context = new GameContext())
             {
-                return context.Games.ToList();
+                return await context.Games.ToListAsync();
             }
         }
 
-        public Game GetLastGame()
+        public async Task<Game> GetLastGameAsync()
         {
             using (GameContext context = new GameContext())
             {
-                return context.Games.OrderByDescending(x => x.GameID).FirstOrDefault();
+                return await context.Games.OrderByDescending(x => x.GameID).FirstOrDefaultAsync();
             }
         }
     }

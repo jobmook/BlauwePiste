@@ -22,7 +22,7 @@ namespace HangmanWebApp.Pages
 
         public void OnGet()
         {
-            Games = repository.ReturnLast10Games();
+            Games = repository.ReturnLast10GamesAsync().Result;
         }
     }
 }
