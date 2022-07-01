@@ -58,8 +58,19 @@ namespace HangmanWebApp.Pages.PlayGame
             return Page();
         }
 
-        public void OnPostStart()
+        public IActionResult OnPostStart()
         {
+            Player newPlayer = new Player();
+            if (players.GetPlayerByName(PlayerName) == null)
+            {
+                newPlayer.Name = PlayerName;
+                players.AddPlayer(newPlayer);
+            }
+            else
+            {
+                newPlayer = players.GetPlayerByName(PlayerName);
+            }
+
             Game newGame = new Game();
             Word newWord = words.GetSecretWord();
             Player correspondingPlayer = players.GetLastPlayer();
@@ -80,6 +91,7 @@ namespace HangmanWebApp.Pages.PlayGame
             TriesLeft = newGame.TriesLeft;
             SolutionString = UpdateSolutionString(newGame);
             GuessedLettersString = GuessedLettersToString(newGame);
+            return Page();
         }
 
         public IActionResult OnPostGuess()

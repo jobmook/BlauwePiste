@@ -3,27 +3,18 @@
 @{
 }
 
-<h1>Play game</h1>
-<a href="/index">Homepage</a>
-
-<form asp-page-handler="register" method="post" autocomplete="off">
+<form asp-page-handler="start" method="post">
     <label for="name-input">Enter name:</label>
     <input id="name-input" asp-for="PlayerName" />
-    <button type="submit">Register player!</button>
+    <button>Play Hangman!</button>
 </form>
 
 @{
     if (Model.PlayerName != null)
     {
-        <label asp-for="PlayerName">Registered new player: @Model.PlayerName</label>
+        <label asp-for="PlayerName">Registered player: @Model.PlayerName</label>
     }
 }
-
-<br />
-
-<form asp-page-handler="start" method="post">
-    <button>Play Hangman!</button>
-</form>
 <br />
 <br />
 <br />
