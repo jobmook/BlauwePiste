@@ -18,7 +18,8 @@ namespace Hangman
         //public Boolean Won { get; set; }
 
         public GameStatus Status { get; set; }
-        public long Time { get; set; }
+        public int StartTime { get; set; }
+        public int EndTime { get; set; }
 
         public virtual Player Player { get; set; }
         public virtual Word Word { get; set; }

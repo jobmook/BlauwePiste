@@ -17,6 +17,9 @@ namespace HangmanWebApp.Pages
         [BindProperty]
         public Game GameEntity { get; set; }
 
+        [BindProperty]
+        public int TimeDifference { get; set; }
+
         public void OnGet()
         {
             Games = repository.ReturnLast10Games();

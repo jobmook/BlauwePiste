@@ -4,6 +4,7 @@ using Hangman.DAL.Repositories;
 using Hangman.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Diagnostics;
 
 namespace HangmanWebApp.Pages.PlayGame
 {
@@ -34,6 +35,7 @@ namespace HangmanWebApp.Pages.PlayGame
         PlayersRepository players = new PlayersRepository();
         GamesRepository games = new GamesRepository();
         WordsRepository words = new WordsRepository();
+        
 
         public void OnGet()
         {
@@ -71,6 +73,7 @@ namespace HangmanWebApp.Pages.PlayGame
             newGame.PlayerID = correspondingPlayer.PlayerID;
             newGame.WordID = newWord.WordID;
             newGame.Status = GameStatus.InProgress;
+            newGame.StartTime = DateTime.Now.Millisecond;
 
             games.AddGame(newGame);
             Turns = newGame.Turns;
@@ -108,6 +111,7 @@ namespace HangmanWebApp.Pages.PlayGame
 
                 if (IsWon(currentGame))
                 {
+                    currentGame.EndTime = DateTime.Now.Millisecond;
                     currentGame.Status = GameStatus.Won;
                     GameProgress = "Won";
                     
@@ -115,6 +119,7 @@ namespace HangmanWebApp.Pages.PlayGame
 
                 if (IsLost(currentGame))
                 {
+                    currentGame.EndTime = DateTime.Now.Millisecond;
                     currentGame.Status = GameStatus.Lost;
                     GameProgress = "Lost";
                     

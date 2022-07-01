@@ -15,7 +15,7 @@
         <tr>
             <td>@game.GameID</td>
             <td>@game.WrongGuessedLetters.Count()</td>
-            <td>@game.Time</td>
+            <td>@(game.EndTime - game.StartTime)</td>
         </tr>
     }
 </table>

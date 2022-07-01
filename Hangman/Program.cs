@@ -84,7 +84,7 @@ void uiController()
         DisplayWordInfo();
         Console.WriteLine("You win!");
         stopWatch.Stop();
-        currentGame.Time = stopWatch.ElapsedMilliseconds;
+        currentGame.EndTime = DateTime.Now.Millisecond;
         gameFinish = true;
     }
 
@@ -94,8 +94,7 @@ void uiController()
         DisplayWordInfo();
         Console.WriteLine("You lose!");
         stopWatch.Stop();
-        currentGame.Time = stopWatch.ElapsedMilliseconds;
-        
+        currentGame.EndTime = DateTime.Now.Millisecond;
         gameFinish = true;
 
     }
@@ -125,7 +124,10 @@ void DisplayScoreboard()
     List<Game> lastGames = repository.ReturnLast10Games();
     foreach (Game game in lastGames)
     {
-        Console.WriteLine($"{game.WrongGuessedLetters.Length}______{game.Time}ms");
+        if(game.Status != GameStatus.InProgress)
+        {
+            Console.WriteLine($"{game.WrongGuessedLetters.Length}______{game.EndTime - game.StartTime}ms");
+        }
     }
 }
 
