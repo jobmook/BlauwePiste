@@ -1,0 +1,50 @@
+﻿@page "/highscores"
+@model HangmanWebApp.Pages.HighScores.HighScoresModel
+@using HangmanWebApp.Pages
+@{
+}
+
+<h1>High Scores</h1>
+
+<div>
+    <p>Best most guessed: </p>
+    <table>
+        <tr>
+            <th>PlayerID</th>
+            <th>Name</th>
+            <th>Wincount</th>
+            <th>Lostcount</th>
+            <th>Ratio</th>
+        </tr>
+
+        <tr>
+            <td>@Model.BestMostGuessedPlayer.PlayerID</td>
+            <td>@Model.BestMostGuessedPlayer.Name</td>
+            <td>@Model.BestMostGuessedPlayer.WinCount</td>
+            <td>@Model.BestMostGuessedPlayer.LostCount</td>
+            <td>@Model.BestMostGuessedPlayer.Ratio</td>
+        </tr>
+    </table>
+</div>
+
+<div>
+    <p>Best ratio:</p>
+    <table>
+        <tr>
+            <th>PlayerID</th>
+            <th>Name</th>
+            <th>Wincount</th>
+            <th>Lostcount</th>
+            <th>Ratio</th>
+        </tr>
+
+        <tr>
+            <td>@Model.BestMostRatioPlayer.PlayerID</td>
+            <td>@Model.BestMostRatioPlayer.Name</td>
+            <td>@Model.BestMostRatioPlayer.WinCount</td>
+            <td>@Model.BestMostRatioPlayer.LostCount</td>
+            <td>@Model.BestMostRatioPlayer.Ratio</td>
+        </tr>
+    </table>
+</div>
+

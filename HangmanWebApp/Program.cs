@@ -1,7 +1,11 @@
+using Hangman.DAL;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<GameContext>();
 
 var app = builder.Build();
 

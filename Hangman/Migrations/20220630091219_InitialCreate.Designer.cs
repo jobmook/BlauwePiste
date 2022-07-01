@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hangman.Migrations
 {
     [DbContext(typeof(GameContext))]
-    [Migration("20220509204753_Words")]
-    partial class Words
+    [Migration("20220630091219_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,6 +22,23 @@ namespace Hangman.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("Hangman.Domain.Word", b =>
+                {
+                    b.Property<int>("WordID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WordID"), 1L, 1);
+
+                    b.Property<string>("SecretWord")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("WordID");
+
+                    b.ToTable("Words");
+                });
 
             modelBuilder.Entity("Hangman.Game", b =>
                 {
@@ -46,6 +63,9 @@ namespace Hangman.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<long>("Time")
                         .HasColumnType("bigint");
 
@@ -55,8 +75,8 @@ namespace Hangman.Migrations
                     b.Property<int>("Turns")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Won")
-                        .HasColumnType("bit");
+                    b.Property<int>("WordID")
+                        .HasColumnType("int");
 
                     b.Property<string>("WrongGuessedLetters")
                         .IsRequired()
@@ -65,6 +85,8 @@ namespace Hangman.Migrations
                     b.HasKey("GameID");
 
                     b.HasIndex("PlayerID");
+
+                    b.HasIndex("WordID");
 
                     b.ToTable("Games");
                 });
@@ -95,7 +117,15 @@ namespace Hangman.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Hangman.Domain.Word", "Word")
+                        .WithMany()
+                        .HasForeignKey("WordID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Player");
+
+                    b.Navigation("Word");
                 });
 
             modelBuilder.Entity("Hangman.Player", b =>

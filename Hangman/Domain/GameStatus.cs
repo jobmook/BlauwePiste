@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Hangman.Domain
 {
-    public class Word
+    public enum GameStatus
     {
-        public int WordID { get; set; }
-        public string SecretWord { get; set; }
+        InProgress, Lost, Won
     }
 }

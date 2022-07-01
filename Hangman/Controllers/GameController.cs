@@ -28,7 +28,6 @@ namespace Hangman
             _game.AllGuessedLetters = "";
             _game.CorrectGuessedLetters = "";
             _game.WrongGuessedLetters = "";
-            _game.Won = false;
             _game.PlayerID = playerID;
             _game.WordID = wordID;
         }
@@ -65,24 +64,34 @@ namespace Hangman
                     _game.WrongGuessedLetters += (c);
                 }
             }
+            
         }
 
+       
         public Boolean IsWon()
         {
             if (_game.CorrectGuessedLetters.Length == _word.SecretWord.Length)
             {
-                _game.Won = true;
+                _game.Status = GameStatus.Won;
                 return true;
             }
             else
             {
+                _game.Status = GameStatus.InProgress;
                 return false;
             }
         }
 
         public Boolean IsLost()
         {
-            return _game.TriesLeft <= 0;
+            if(_game.TriesLeft <= 0)
+            {
+                _game.Status = GameStatus.Lost;
+                return true;
+            } else
+            {
+                return false;
+            }
         }
     }
 }

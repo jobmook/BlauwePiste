@@ -4,10 +4,10 @@ using Hangman.DAL;
 using Hangman.Domain;
 using System.Diagnostics;
 
+Repository repository = new Repository();
 Game currentGame = new Game();
-ScoreTracker scoreTracker = new ScoreTracker();
 Player player = new Player();
-Word word = Repository.GetSecretWord();
+Word word = repository.GetSecretWord();
 GameController gameController = new GameController(player, currentGame, word);
 
 Console.WriteLine("\n++++++++++Welcome to Hangman++++++++++");
@@ -16,7 +16,7 @@ using (GameContext context = new GameContext())
 {
     Console.WriteLine("Creating database...");
     context.Database.EnsureCreated();
-    if (Repository.IsEmptyWordList())
+    if (repository.IsEmptyWordList())
     {
         GameInitialize.AddWords();
     }
@@ -35,8 +35,8 @@ do
         Console.WriteLine("Enter name:");
         string name = Console.ReadLine();
         gameController.NewPlayer(name);
-        Repository.AddPlayer(player);
-        scoreTracker.AddPlayer(player);
+        repository.AddPlayer(player);
+        
 
         Console.WriteLine("Starting game..");
        
@@ -63,6 +63,7 @@ do
 
 void uiController()
 {
+    
     Stopwatch stopWatch = new Stopwatch();
     stopWatch.Start();
     if (currentGame == null) throw new Exception("There is no game started!"); // error
@@ -84,7 +85,6 @@ void uiController()
         Console.WriteLine("You win!");
         stopWatch.Stop();
         currentGame.Time = stopWatch.ElapsedMilliseconds;
-        scoreTracker.AddWonTime(currentGame.Time);
         gameFinish = true;
     }
 
@@ -95,16 +95,16 @@ void uiController()
         Console.WriteLine("You lose!");
         stopWatch.Stop();
         currentGame.Time = stopWatch.ElapsedMilliseconds;
-        scoreTracker.AddWonTime(-1);
+        
         gameFinish = true;
 
     }
 
     if (gameFinish)
     {
+        repository.AddGame(currentGame);
         Console.WriteLine($"Correct word: {currentGame.SecretWord}");
-        scoreTracker.AddWrongGuessCount(currentGame.WrongGuessedLetters.Length);
-        Repository.AddGame(currentGame);
+        
         DisplayScoreboard();
     }
 }
@@ -122,7 +122,7 @@ void DisplayScoreboard()
     Console.WriteLine("\n++++++++++Statistics++++++++++");
     Console.WriteLine("Last 10 games:");
     Console.WriteLine("Wrong guessed ______ Time");
-    List<Game> lastGames = Repository.ReturnLast10Games();
+    List<Game> lastGames = repository.ReturnLast10Games();
     foreach (Game game in lastGames)
     {
         Console.WriteLine($"{game.WrongGuessedLetters.Length}______{game.Time}ms");
@@ -131,8 +131,8 @@ void DisplayScoreboard()
 
 void DisplayPlayerBoard()
 {
-    var bestPlayer = Repository.ReturnBestMostGuessed();
-    var bestRatio = Repository.ReturnBestRatio();
+    var bestPlayer = repository.ReturnBestMostGuessed();
+    var bestRatio = repository.ReturnBestRatio();
     Console.WriteLine($"Best player: id:{bestPlayer.PlayerID}, name: {bestPlayer.Name}, wins: {bestPlayer.WinCount}, losses: {bestPlayer.LostCount}, ratio: {bestPlayer.Ratio}");
     Console.WriteLine($"Best ratio: id:{bestRatio.PlayerID}, name: {bestRatio.Name}, wins: {bestRatio.WinCount}, losses: {bestRatio.LostCount}, ratio: {bestRatio.Ratio}");
 }

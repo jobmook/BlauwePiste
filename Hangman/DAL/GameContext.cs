@@ -16,6 +16,11 @@ namespace Hangman.DAL
 
         public DbSet<Word> Words { get; set; }
 
+        internal void Find(Func<object, bool> p)
+        {
+            throw new NotImplementedException();
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // optionsBuilder.LogTo(Console.WriteLine);

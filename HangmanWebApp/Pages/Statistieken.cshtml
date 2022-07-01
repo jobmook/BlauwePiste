@@ -1,0 +1,24 @@
+﻿@page "/statistics"
+@model HangmanWebApp.Pages.StatistiekenModel
+@using HangmanWebApp.Pages
+
+<h1>Statistieken</h1>
+<h2>Lijst van laatste 10 games</h2>
+<table>
+    <tr>
+        <th>GameID</th>
+        <th>Number of wrong guessed letters</th>
+        <th>Time</th>
+    </tr>
+    @foreach (var game in Model.Games)
+    {
+        <tr>
+            <td>@game.GameID</td>
+            <td>@game.WrongGuessedLetters.Count()</td>
+            <td>@game.Time</td>
+        </tr>
+    }
+</table>
+
+
+

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangman", "Hangman\Hangman.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangman.Test", "Hangman.Test\Hangman.Test.csproj", "{66312684-E8E0-4C9C-9BC0-A2D87AA5AC17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HangmanWebApp", "HangmanWebApp\HangmanWebApp.csproj", "{B603F032-3AA1-467A-AEA3-C59EB700A69A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HangmanWebApp", "HangmanWebApp\HangmanWebApp.csproj", "{B603F032-3AA1-467A-AEA3-C59EB700A69A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B49AB8DB-2776-48FC-BDCF-9801DF2486FB} = {B49AB8DB-2776-48FC-BDCF-9801DF2486FB}
 	EndProjectSection

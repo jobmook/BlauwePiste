@@ -23,17 +23,17 @@ namespace Hangman.Migrations
 
             modelBuilder.Entity("Hangman.Domain.Word", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("WordID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WordID"), 1L, 1);
 
                     b.Property<string>("SecretWord")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("WordID");
 
                     b.ToTable("Words");
                 });
@@ -61,6 +61,9 @@ namespace Hangman.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<long>("Time")
                         .HasColumnType("bigint");
 
@@ -70,8 +73,8 @@ namespace Hangman.Migrations
                     b.Property<int>("Turns")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Won")
-                        .HasColumnType("bit");
+                    b.Property<int>("WordID")
+                        .HasColumnType("int");
 
                     b.Property<string>("WrongGuessedLetters")
                         .IsRequired()
@@ -80,6 +83,8 @@ namespace Hangman.Migrations
                     b.HasKey("GameID");
 
                     b.HasIndex("PlayerID");
+
+                    b.HasIndex("WordID");
 
                     b.ToTable("Games");
                 });
@@ -110,7 +115,15 @@ namespace Hangman.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Hangman.Domain.Word", "Word")
+                        .WithMany()
+                        .HasForeignKey("WordID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Player");
+
+                    b.Navigation("Word");
                 });
 
             modelBuilder.Entity("Hangman.Player", b =>
