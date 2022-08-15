@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangman", "Hangman\Hangman.csproj", "{B49AB8DB-2776-48FC-BDCF-9801DF2486FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HangmanCore", "Hangman\HangmanCore.csproj", "{B49AB8DB-2776-48FC-BDCF-9801DF2486FB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangman.Test", "Hangman.Test\Hangman.Test.csproj", "{66312684-E8E0-4C9C-9BC0-A2D87AA5AC17}"
 EndProject

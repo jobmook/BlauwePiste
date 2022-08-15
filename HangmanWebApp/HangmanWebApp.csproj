@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Hangman\Hangman.csproj" />
+    <ProjectReference Include="..\Hangman\HangmanCore.csproj" />
   </ItemGroup>
 
 </Project>
