@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Hangman
 {
-    public class GameController
+    public class GameController 
     {
         public Game _game { get; set; }
         public Player _player { get; set; }

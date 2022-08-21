@@ -24,7 +24,7 @@ namespace Hangman.DAL
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // optionsBuilder.LogTo(Console.WriteLine);
-            optionsBuilder.UseSqlServer(@"Server=localhost;Database = HangmanDB;Integrated Security=true");
+            optionsBuilder.UseSqlServer(@"Server=localhost;Database = HangmanDB;Integrated Security=true; MultipleActiveResultSets=True");
             
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -9,6 +9,8 @@ namespace Hangman.DAL.Repositories
 {
     public class GamesRepository
     {
+        private static List<Game> s_games = new();
+
         public async Task<Game> GetGameByIdAsync(int id)
         {
             using (GameContext context = new GameContext())
@@ -22,9 +24,29 @@ namespace Hangman.DAL.Repositories
             using (GameContext context = new GameContext())
             {
                 context.Games.Add(gameToAdd);
-                context.SaveChangesAsync();
+                await context.SaveChangesAsync();
             }
         }
+
+        public Task<Game> CreateGameWithPlayer(Player player)
+        {
+            var game = new Game
+            {
+                Player = player,
+                PlayerID = player.PlayerID,
+        };
+
+
+            using (GameContext context = new GameContext())
+            {
+                context.Games.Add(game);
+                context.SaveChangesAsync();
+            }
+
+            return Task.FromResult(game);
+        }
+
+
 
         public async Task UpdateGameAsync(Game game)
         {

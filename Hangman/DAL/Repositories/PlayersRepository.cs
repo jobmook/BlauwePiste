@@ -35,6 +35,19 @@ namespace Hangman.DAL.Repositories
             }
         }
 
+        public Task<Player> CreatePlayer(string npName)
+        {
+            Player newPlayer = new Player();
+            newPlayer.Name = npName;
+
+            using (GameContext context = new GameContext())
+            {
+                context.Players.Add(newPlayer);
+                context.SaveChanges();
+            }
+            return Task.FromResult(newPlayer);
+        }
+
         public async Task<IEnumerable<Player>> GetPlayersAsync()
         {
             using (GameContext context = new GameContext())
