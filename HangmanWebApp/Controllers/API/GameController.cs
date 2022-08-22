@@ -67,7 +67,7 @@ namespace HangmanWebApp.Controllers.API
         {
             int gameId = guessDto.GameId;
             char guessedLetter = guessDto.guessedLetter;
-            Game currentGame = _gameRepository.GetGameByIdAsync(gameId).Result;
+            Game currentGame =  await _gameRepository.GetGameByIdAsync(gameId);
             currentGame.Turns++;
             if (!currentGame.AllGuessedLetters.Contains(guessedLetter))
             {

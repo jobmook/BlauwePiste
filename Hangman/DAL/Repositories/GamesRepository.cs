@@ -13,10 +13,12 @@ namespace Hangman.DAL.Repositories
 
         public async Task<Game> GetGameByIdAsync(int id)
         {
+            Game foundgame;
             using (GameContext context = new GameContext())
             {
-                return await context.Games.FindAsync(id);
+                foundgame =  await context.Games.FindAsync(id);
             }
+            return foundgame;
         }
 
         public async Task AddGameAsync(Game gameToAdd)

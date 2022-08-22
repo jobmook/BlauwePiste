@@ -27,7 +27,7 @@ namespace HangmanWebApp.Controllers.API
         [Route("statistics")]
         public async Task<IEnumerable<Game>> GetStats()
         {
-            return  _statsRepository.ReturnLast10GamesAsync().Result;
+            return await _statsRepository.ReturnLast10GamesAsync();
         }
 
         [HttpGet]
